@@ -14,11 +14,14 @@ function customerSuccessBalancing(
    * =========== Write your solution here ==========
    * ===============================================
    */
+    
+    //guardando os valores passados por meio do parametro da função em constantes
     const n = customerSuccess;
     const m = customers;
     const t = customerSuccessAway;
     let object = {};
 
+    //filtrando quais CSs estão disponiveis e retirando os que não estão
     const cssD = n.filter((element)=>{
          if(t.includes(element.id)) {
             return false;
@@ -27,9 +30,11 @@ function customerSuccessBalancing(
         return true;
     });
 
+    //ordenando os CSs e os Clientes disponiveis em ordem crescente
     const cssDo = cssD.sort((a,b)=> a.score - b.score);
     const customerO = m.sort((a,b) => a.score - b.score);
 
+    //Alocando as empresas para os Gerentes que tenham até o nível deles.
     cssDo.forEach((css)=>{
       let cs = []
       customerO.forEach((customer) => {
@@ -38,11 +43,12 @@ function customerSuccessBalancing(
         }
       })
       object[css.id] = cs.length
-    })
+    });
     
+   //retornando o id do CSs que mais atende cliente ou retornando 0 caso esteja empatado com outro CSs
    let arr = Object.entries(object).sort((a,b)=> a[1] - b[1])
    if(arr[0][1] !== arr[1][1] || arr.length == 0){
-    return parseInt(arr[0][0])
+    return parseInt(arr[0][0]);
    }
 
    return 0;
