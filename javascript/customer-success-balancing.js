@@ -14,6 +14,38 @@ function customerSuccessBalancing(
    * =========== Write your solution here ==========
    * ===============================================
    */
+    const n = customerSuccess;
+    const m = customers;
+    const t = customerSuccessAway;
+    let object = {};
+
+    const cssD = n.filter((element)=>{
+         if(t.includes(element.id)) {
+            return false;
+         }
+
+        return true;
+    });
+
+    const cssDo = cssD.sort((a,b)=> a.score - b.score);
+    const customerO = m.sort((a,b) => a.score - b.score);
+
+    cssDo.forEach((css)=>{
+      let cs = []
+      customerO.forEach((customer) => {
+        if(customer.score <= css.score) {
+          cs.push(true)
+        }
+      })
+      object[css.id] = cs.length
+    })
+    
+   let arr = Object.entries(object).sort((a,b)=> a[1] - b[1])
+   if(arr[0][1] !== arr[1][1] || arr.length == 0){
+    return parseInt(arr[0][0])
+   }
+
+   return 0;
 }
 
 test("Scenario 1", () => {
